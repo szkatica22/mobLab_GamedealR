@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import hu.bme.aut.moblab_gamedealr.model.Game
 
 @Composable
 fun GamedealRMainScreen() {
@@ -32,6 +33,28 @@ fun GamedealRMainScreen() {
 //        systemUiController.setNavigationBarColor(animatedNavigationBarColor)
 //    }
 }
+
+// Composable function for the Games page
+@Composable
+fun Games(
+    searchedGameName: String?,
+    viewModel: GamesViewModel
+) {
+
+}
+
+@Composable
+fun SearchGame() {
+    // Search Edit text the top of the screen
+}
+
+fun SearchedGameCard(
+    searchedGame: Game,
+) {
+    // Card with the searched result game information
+}
+
+// Nav Screen Sealed Class
 
 sealed class NavScreen(val route: String) {
 
