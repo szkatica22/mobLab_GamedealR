@@ -16,6 +16,6 @@ data class Deal (
     val isOnSale: Boolean,
     val savings: Number,
     val releaseDate: Date,
-    val lastCange: Date,
+    val lastChange: Date,
     val image: Image
 )
