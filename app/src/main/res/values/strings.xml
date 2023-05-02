@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GamedealR</string>
+    <string name="menu_games">Games</string>
+    <string name="menu_my_deals">My Deals</string>
 </resources>

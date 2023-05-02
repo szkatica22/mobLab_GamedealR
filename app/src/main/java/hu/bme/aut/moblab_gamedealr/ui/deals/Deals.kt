@@ -2,10 +2,9 @@ package hu.bme.aut.moblab_gamedealr.ui.deals
 
 import androidx.compose.runtime.Composable
 import hu.bme.aut.moblab_gamedealr.model.Deal
-import hu.bme.aut.moblab_gamedealr.ui.main_games.GamesViewModel
 
 @Composable
-fun Deals(
+fun DealsScreen(
     gameId: Long,
     viewModel: DealsViewModel,
     pressOnBack: () -> Unit = {}
@@ -17,7 +16,7 @@ fun Deals(
 @Composable
 private fun GameHeader(
     gameId: Long,
-    viewModel: GamesViewModel,
+    viewModel: DealsViewModel,
 ) {
 
 }

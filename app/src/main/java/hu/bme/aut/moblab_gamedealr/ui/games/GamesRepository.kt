@@ -1,4 +1,4 @@
-package hu.bme.aut.moblab_gamedealr.ui.main_games
+package hu.bme.aut.moblab_gamedealr.ui.games
 
 import hu.bme.aut.moblab_gamedealr.network.GamedealRService
 import hu.bme.aut.moblab_gamedealr.persistence.GamedealRDao

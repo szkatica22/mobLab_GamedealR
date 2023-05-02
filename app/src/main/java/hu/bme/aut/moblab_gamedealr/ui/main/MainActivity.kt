@@ -1,4 +1,4 @@
-package hu.bme.aut.moblab_gamedealr.ui.main_games
+package hu.bme.aut.moblab_gamedealr.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -27,16 +27,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-//@Composable
-//fun Greeting(name: String) {
-//    Text(text = "Hello $name!")
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun DefaultPreview() {
-//    MobLab_GamedealRTheme {
-//        Greeting("Android")
-//    }
-//}

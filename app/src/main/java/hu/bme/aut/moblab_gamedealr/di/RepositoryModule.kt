@@ -5,9 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import hu.bme.aut.moblab_gamedealr.network.GamedealRService
-import hu.bme.aut.moblab_gamedealr.persistence.GamedealRDao
-import hu.bme.aut.moblab_gamedealr.ui.main_games.GamesRepository
+import hu.bme.aut.moblab_gamedealr.ui.games.GamesRepository
 
 @Module
 @InstallIn(ViewModelComponent::class)
