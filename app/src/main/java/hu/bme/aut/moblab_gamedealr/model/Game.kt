@@ -4,7 +4,7 @@ import java.util.*
 
 data class Game (
     val gameID: String,
-    val steamAppId: String,
+    val steamAppID: String,
     val cheapest: String,
     val cheapestDealID: String,
     val external: String,

@@ -15,13 +15,24 @@ class GamesViewModel @Inject constructor(
 
     init {
         getTestGames()
+        getStores()
     }
 
     fun getTestGames() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                println(gamesRepository.searchGames("Overcooked"))
+                println(gamesRepository.searchGames("Need"))
             } catch (e: Exception) {
+                println(e)
+            }
+        }
+    }
+
+    fun getStores() {
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                println(gamesRepository.getStores())
+            } catch (e: Exception){
                 println(e)
             }
         }
