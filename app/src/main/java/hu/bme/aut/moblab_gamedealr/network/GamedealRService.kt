@@ -10,11 +10,11 @@ import retrofit2.http.Query
 interface GamedealRService {
 
     @GET("games")
-    fun searchGames(@Query("title") title: String): Call<List<Game>>
+    suspend fun searchGames(@Query("title") title: String): List<Game>
 
     @GET("stores")
-    fun getStores(): Call<List<Store>>
+    suspend fun getStores(): List<Store>
 
     @GET("deals")
-    fun getDeals(@Query("title") title: String): Call<List<Deal>>
+    suspend fun getDeals(@Query("title") title: String): List<Deal>
 }

@@ -18,7 +18,6 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-                //.addInterceptor(RequestInterceptor())
                 .build()
     }
 
@@ -28,7 +27,7 @@ object NetworkModule {
         return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(
-                        "https://www.cheapshark.com/api/1.0"
+                        "https://www.cheapshark.com/api/1.0/"
                 )
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
