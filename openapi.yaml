@@ -1,0 +1,200 @@
+openapi: 3.0.3
+info:
+  title: CheapShark API - OpenAPI 3.0
+  description: |-
+    This is Videogame Deals Server
+    
+    Some useful links:
+    - [The CheapShark API](https://apidocs.cheapshark.com/)
+  version:
+    1.0.0
+servers:
+  - url: https://www.cheapshark.com/api/1.0
+
+paths:
+  /games:
+    get:
+      tags:
+        - games
+      summary: Find games by name
+      description: Returns a list of games with the given name
+      operationId: getGamesByName
+      parameters:
+        - name: title
+          in: query
+          description: Name of game to return
+          required: true
+          schema:
+            type: string
+            example: Hogwarts Legacy
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+        '400':
+          description: Invalid Name supplied
+        '404':
+          description: Games not found
+  /deals:
+    get:
+      tags:
+        - deals
+      summary: Find deals for a game by game name
+      description: Returns a list of deals for the given game
+      operationId: getDealsByName
+      parameters:
+        - name: title
+          in: query
+          description: Name of game to return
+          required: true
+          schema:
+            type: string
+            example: Overcooked! All You Can Eat
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Deal'          
+        '400':
+          description: Invalid Name supplied
+        '404':
+          description: Deals not found
+  /stores:
+    get:
+      tags:
+        - stores
+      summary: Find available game stores
+      description: Returns a list of available game stores
+      operationId: getStores
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Store'          
+        '404':
+          description: Stores not found
+components:
+  schemas:
+    Store:
+      type: object
+      properties:
+        storeID:
+          type: string
+          example: 1
+        storeName:
+          type: string
+          example: Steam
+        isActive:
+          type: integer
+          example: 1
+        images:
+          $ref: '#/components/schemas/Images'
+    Images:
+      type: object
+      properties:
+        banner:
+          type: string
+          example: /img/stores/banners/0.png
+        logo:
+          type: string
+          example: /img/stores/logos/0.png
+        icon:
+          type: string
+          example: /img/stores/icons/0.png
+    Game:
+      type: object
+      properties:
+        gameID:
+          type: string
+          example: 146
+        steamAppID:
+          type: string
+          example: 35140
+        cheapest:
+          type: string
+          example: 5.00
+        cheapestDealID:
+          type: string
+          example: n96QeQ9FLRDoZToO75BS2Dx22PPtc7hlpcehVxUlW2c%3D
+        external:
+          type: string
+          example: 'Batman: Arkham Asylum Game of the Year Edition'
+        internalName:
+          type: string
+          example: BATMANARKHAMASYLUMGAMEOFTHEYEAREDITION
+        thumb:
+          type: string
+          example: https://steamcdn-a.akamaihd.net/steam/apps/35140/capsule_sm_120.jpg?t=1525990900
+    Deal:
+      type: object
+      properties:
+        internalName:
+          type: string
+          example: MACROGOLF
+        title:
+          type: string
+          example: Macro golf
+        metacriticLink:
+          type: string
+          example: /game/pc/macro-golf
+        dealID:
+          type: string
+          example: 9Pqb7mrsh5lL5QRtvabuNx9r1lY23HI3Z1ZO5QVRh5c%3D
+        storeID:
+          type: string
+          example: 1
+        gameID:
+          type: string
+          example: 224117
+        salePrice:
+          type: string
+          example: 1.89
+        normalPrice:
+          type: string
+          example: 18.99
+        isOnSale:
+          type: string
+          example: 1
+        savings:
+          type: string
+          example: 90.047393
+        metacriticScore:
+          type: string
+          example: 0
+        steamRatingText:
+          type: string
+          example: null
+        steamRatingPercent:
+          type: string
+          example: 0
+        steamRatingCount:
+          type: string
+          example: 0
+        steamAppID:
+          type: string
+          example: 1472260
+        releaseDate:
+          type: integer
+          example: 1607904000
+        lastChange:
+          type: integer
+          example: 1621416869
+        dealRating:
+          type: string
+          example: 8.9
+        thumb:
+          type: string
+          example: https://cdn.cloudflare.steamstatic.com/steam/apps/1472260/capsule_sm_120.jpg?t=1607935627
