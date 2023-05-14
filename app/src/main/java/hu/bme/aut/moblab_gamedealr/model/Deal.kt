@@ -4,18 +4,23 @@ import android.media.Image
 import java.util.Date
 
 data class Deal (
-    val internalName: Long,
+    val internalName: String,
     val title: String,
-    val dealId: String,
-//    val storeId: Number,
-    val storeName: String, // Todo: Originally we get the store Id but I would like to save the store name here
-    val gameId: Long,
-    val gameName: String,
-    val salePrice: Double,
-    val normalPrice: Double,
-    val isOnSale: Boolean,
-    val savings: Double,
-    val releaseDate: Date,
-    val lastChange: Date,
-    val image: Image
+    val metacriticLink: String,
+    val dealID: String,
+    val storeID: String,
+    val gameID: String,
+    val salePrice: String,
+    val normalPrice: String,
+    val isOnSale: String,
+    val savings: String,
+    val metacriticScore: String,
+    val steamRatingText: String,
+    val steamRatingPercent: String,
+    val steamRatingCountval: String,
+    val steamAppID: String,
+    val releaseDate: Int,
+    val lastChange: Int,
+    val dealRating: String,
+    val thumb: String
 )

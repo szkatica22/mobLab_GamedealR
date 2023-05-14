@@ -4,9 +4,10 @@ import java.util.*
 
 data class Game (
     val gameID: String,
-    val title: String,
-    val steamAppId: Long,
-    val cheapestPriceValue: Double,
-    val cheapestPriceDate: Date,
-    val deals: List<Deal>
+    val steamAppId: String,
+    val cheapest: String,
+    val cheapestDealID: String,
+    val external: String,
+    val internalName: String,
+    val thumb: String
 )
