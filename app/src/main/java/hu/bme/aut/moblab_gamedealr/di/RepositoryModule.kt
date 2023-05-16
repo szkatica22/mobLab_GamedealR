@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import hu.bme.aut.moblab_gamedealr.network.GamedealRService
+import hu.bme.aut.moblab_gamedealr.persistence.MyDealsDao
+import hu.bme.aut.moblab_gamedealr.persistence.StoreInfoDao
 import hu.bme.aut.moblab_gamedealr.ui.games.GamesRepository
 
 @Module
@@ -16,8 +18,9 @@ class RepositoryModule {
     @ViewModelScoped
     fun provideGamesRepository(
         gamedealRService: GamedealRService,
-//        gamedealRDao: GamedealRDao
+        myDealsDao: MyDealsDao,
+        storeInfoDao: StoreInfoDao
     ): GamesRepository {
-        return GamesRepository(gamedealRService/*, gamedealRDao*/)
+        return GamesRepository(gamedealRService, myDealsDao, storeInfoDao)
     }
 }
