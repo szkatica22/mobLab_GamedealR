@@ -4,4 +4,8 @@
     <string name="menu_deals">Deals</string>
     <string name="menu_my_deals">My Deals</string>
     <string name="database">GamedealR.db</string>
+
+    <string name="original_price">Original price:</string>
+    <string name="actual_price">Actual price:</string>
+    <string name="sale_ends">Sale ends:</string>
 </resources>
