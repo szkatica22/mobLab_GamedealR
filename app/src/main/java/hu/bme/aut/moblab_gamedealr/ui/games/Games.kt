@@ -1,5 +1,6 @@
 package hu.bme.aut.moblab_gamedealr.ui.games
 
+import android.content.res.Resources.Theme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,20 +18,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import hu.bme.aut.moblab_gamedealr.R
 import hu.bme.aut.moblab_gamedealr.model.Game
+import hu.bme.aut.moblab_gamedealr.ui.main.NavScreen
+import hu.bme.aut.moblab_gamedealr.ui.theme.Purple100
+import hu.bme.aut.moblab_gamedealr.ui.theme.Purple900
 
 @Composable
 fun GamesScreen(
     modifier: Modifier = Modifier,
     games: List<Game>,
     selectGame: (Long) -> Unit,
-    gamesViewModel: GamesViewModel
+    gamesViewModel: GamesViewModel,
+    navController: NavController
 ) {
     Column {
-        Text(text = "Games screen")
-        SearchedGameCard("Test gamename")
+        GamesAppBar()
+        SearchedGameCard("Test gamename", navController)
     }
 }
 
@@ -38,18 +45,21 @@ fun GamesScreen(
 fun GamesAppBar() {
     TopAppBar(
         elevation = 6.dp,
-        backgroundColor = Color.Cyan,
         modifier = Modifier
             .statusBarsPadding()
             .height(58.dp)
+            .fillMaxWidth()
     ) {
         Text(
             modifier = Modifier
                 .padding(8.dp)
+                .fillMaxWidth()
                 .align(Alignment.CenterVertically),
-            text = stringResource(R.string.app_name),
+            text = stringResource(R.string.menu_games),
             color = Color.White,
             fontSize = 18.sp,
+            maxLines = 1,
+            textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold
         )
     }
@@ -62,14 +72,15 @@ fun SearchGame() {
 @Composable
 fun SearchedGameCard(
 //    searchedGame: Game,
-    testName: String
+    testName: String,
+    navController: NavController
 ) {
     // Card with the searched result game information
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp)
-            .clickable { },
+            .padding(15.dp),
+//            .clickable { },
         elevation = 10.dp,
         shape = RoundedCornerShape(20.dp),
         backgroundColor = Color.White,
@@ -96,10 +107,10 @@ fun SearchedGameCard(
                 Spacer(modifier = Modifier.height(40.dp))
                 Button(
 //                    modifier = Modifier.height(60.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Purple900),
                     shape = RoundedCornerShape(20.dp),
                     onClick = {
-                        println("TODO BUTTON - GO TO THE DEALS")
+                        navController.navigate(route = "${NavScreen.GamedealDetails.route}/$testName")
                     }
                 ) {
 //                    Image(

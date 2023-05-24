@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GamedealR</string>
     <string name="menu_games">Games</string>
+    <string name="menu_deals">Deals</string>
     <string name="menu_my_deals">My Deals</string>
     <string name="database">GamedealR.db</string>
 </resources>

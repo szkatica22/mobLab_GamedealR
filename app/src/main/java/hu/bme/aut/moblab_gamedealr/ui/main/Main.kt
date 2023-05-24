@@ -24,6 +24,7 @@ fun GamedealRMainScreen() {
         composable(NavScreen.Home.route) {
             GamesMainScreen(
                 viewModel = hiltViewModel(),
+                navController = navController,
                 selectGame = {
                     navController.navigate("${NavScreen.GamedealDetails.route}/$it")
                 }
@@ -37,13 +38,13 @@ fun GamedealRMainScreen() {
         composable(
             route = NavScreen.GamedealDetails.routeWithArgument,
             arguments = listOf(
-                navArgument(NavScreen.GamedealDetails.argument0) { type = NavType.LongType }
+                navArgument(NavScreen.GamedealDetails.argument0) { type = NavType.StringType }
             )
         ) { backStackEntry ->
             val gameId =
-                backStackEntry.arguments?.getLong(NavScreen.GamedealDetails.argument0) ?: return@composable
+                backStackEntry.arguments?.getString(NavScreen.GamedealDetails.argument0) ?: return@composable
 
-            DealsScreen(gameId = gameId, viewModel = hiltViewModel()) {
+            DealsScreen(gameId = gameId, viewModel = hiltViewModel(), navController = navController) {
                 navController.navigateUp()
             }
 

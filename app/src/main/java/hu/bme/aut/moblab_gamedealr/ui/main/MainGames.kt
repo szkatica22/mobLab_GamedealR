@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import hu.bme.aut.moblab_gamedealr.R
 import hu.bme.aut.moblab_gamedealr.model.Game
 import hu.bme.aut.moblab_gamedealr.ui.games.GamesScreen
@@ -22,6 +23,7 @@ import hu.bme.aut.moblab_gamedealr.ui.my_deals.MyDealsScreen
 @Composable
 fun GamesMainScreen(
     viewModel: MainViewModel,
+    navController: NavController,
     selectGame: (Long) -> Unit
 ) {
     val games: List<Game>  = emptyList()//by viewModel.gameList.collectAsState(initial = listOf())
@@ -49,7 +51,7 @@ fun GamesMainScreen(
         val modifier = Modifier.padding(innerPadding)
         Crossfade(selectedTab) { destination ->
             when (destination) {
-                GamedealRHomeTab.GAMES -> GamesScreen(modifier, games, selectGame, hiltViewModel())
+                GamedealRHomeTab.GAMES -> GamesScreen(modifier, games, selectGame, hiltViewModel(), navController)
                 GamedealRHomeTab.MYDEALS -> MyDealsScreen(modifier, games, hiltViewModel())
             }
         }
