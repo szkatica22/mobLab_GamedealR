@@ -76,13 +76,13 @@ fun SearchedGameCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp),
+            .padding(8.dp),
 //            .clickable { },
         elevation = 10.dp,
         shape = RoundedCornerShape(20.dp),
         backgroundColor = Color.White,
     ) {
-        Row(modifier = Modifier.padding(15.dp)) {
+        Row(modifier = Modifier.padding(8.dp)) {
             Box(
                 modifier = Modifier.size(128.dp)
                     .align(Alignment.CenterVertically)
@@ -94,7 +94,7 @@ fun SearchedGameCard(
                 )
             }
             Column(
-                modifier = Modifier.padding(15.dp),
+                modifier = Modifier.padding(8.dp),
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text(
