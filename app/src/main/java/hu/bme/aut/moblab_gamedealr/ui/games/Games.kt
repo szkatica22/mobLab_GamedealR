@@ -1,14 +1,13 @@
 package hu.bme.aut.moblab_gamedealr.ui.games
 
-import android.content.res.Resources.Theme
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -19,12 +18,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.AsyncImage
 import hu.bme.aut.moblab_gamedealr.R
 import hu.bme.aut.moblab_gamedealr.model.Game
 import hu.bme.aut.moblab_gamedealr.ui.main.NavScreen
-import hu.bme.aut.moblab_gamedealr.ui.theme.Purple100
 import hu.bme.aut.moblab_gamedealr.ui.theme.Purple900
 
 @Composable
@@ -86,11 +83,16 @@ fun SearchedGameCard(
         backgroundColor = Color.White,
     ) {
         Row(modifier = Modifier.padding(15.dp)) {
-            Image(
-                painter = rememberAsyncImagePainter("https://example.com/image.jpg"),
-                contentDescription = null,
+            Box(
                 modifier = Modifier.size(128.dp)
-            )
+                    .align(Alignment.CenterVertically)
+                    .clip(RoundedCornerShape(20.dp))
+            ) {
+                AsyncImage(
+                    model = "https://cdn.pixabay.com/photo/2021/11/12/12/16/leaves-6788800_1280.jpg",
+                    contentDescription = "Test image",
+                )
+            }
             Column(
                 modifier = Modifier.padding(15.dp),
                 verticalArrangement = Arrangement.Center,
