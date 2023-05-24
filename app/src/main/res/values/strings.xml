@@ -8,4 +8,5 @@
     <string name="original_price">Original price:</string>
     <string name="actual_price">Actual price:</string>
     <string name="sale_ends">Sale ends:</string>
+    <string name="store">Store:</string>
 </resources>

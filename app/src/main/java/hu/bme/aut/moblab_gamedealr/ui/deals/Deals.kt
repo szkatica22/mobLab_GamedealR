@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import hu.bme.aut.moblab_gamedealr.R
 import hu.bme.aut.moblab_gamedealr.ui.theme.Purple100
 import hu.bme.aut.moblab_gamedealr.ui.theme.Purple900
@@ -37,7 +39,7 @@ fun DealsScreen(
     // display the list of the deals
     Column() {
         DealsAppBar(gameId, navController)
-//        GameHeader(gameId = "testID", viewModel = viewModel) - benan nez ki, kicsi a kep
+        GameHeader() // - benan nez ki, kicsi a kep, ugyhogy random kep van
         DealDetails()
     }
 
@@ -51,8 +53,7 @@ fun DealsAppBar(title: String, navController: NavController) {
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth(),
-//                    .align(Alignment.Center),
-                text = "$title - deals",
+                text = title,
                 color = Color.White,
                 fontSize = 18.sp,
                 maxLines = 1,
@@ -71,47 +72,25 @@ fun DealsAppBar(title: String, navController: NavController) {
         contentColor = Color.White,
         elevation = 10.dp
     )
-//    TopAppBar(
-//        elevation = 6.dp,
-//        modifier = Modifier
-//            .statusBarsPadding()
-//            .height(58.dp)
-//            .fillMaxWidth()
-//    ) {
-//        Text(
-//            modifier = Modifier
-//                .padding(8.dp)
-//                .fillMaxWidth()
-//                .align(Alignment.CenterVertically),
-//            text = "$title deals",
-//            color = Color.White,
-//            fontSize = 18.sp,
-//            maxLines = 1,
-//            textAlign = TextAlign.Center,
-//            fontWeight = FontWeight.Bold
-//        )
-//    }
 }
 
-//@Composable
-//private fun GameHeader(
-//    gameId: String,
-//    viewModel: DealsViewModel,
-//) {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .height(100.dp)
-//            .padding(horizontal = 10.dp)
-//    ) {
-//        AsyncImage(
-//            model = "https://cdn.cloudflare.steamstatic.com/steam/apps/238010/capsule_sm_120.jpg",
-//            contentDescription = "Test image",
-//            modifier = Modifier.fillMaxWidth(),
-//            contentScale = ContentScale.FillWidth
-//        )
-//    }
-//}
+@Composable
+private fun GameHeader(
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(130.dp)
+            .padding(2.dp)
+    ) {
+        AsyncImage(
+            model = "https://picsum.photos/300/200",
+            contentDescription = "Test image",
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillWidth
+        )
+    }
+}
 
 @Composable
 private fun DealDetails(
@@ -122,7 +101,6 @@ private fun DealDetails(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-//            .clickable { },
         elevation = 10.dp,
         shape = RoundedCornerShape(20.dp),
         backgroundColor = Color.White,

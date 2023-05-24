@@ -89,13 +89,14 @@ fun SearchedGameCard(
                     .clip(RoundedCornerShape(20.dp))
             ) {
                 AsyncImage(
-                    model = "https://cdn.pixabay.com/photo/2021/11/12/12/16/leaves-6788800_1280.jpg",
+                    model = "https://picsum.photos/400",
                     contentDescription = "Test image",
                 )
             }
             Column(
                 modifier = Modifier.padding(8.dp),
                 verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = testName,
@@ -108,23 +109,16 @@ fun SearchedGameCard(
                 )
                 Spacer(modifier = Modifier.height(40.dp))
                 Button(
-//                    modifier = Modifier.height(60.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Purple900),
                     shape = RoundedCornerShape(20.dp),
                     onClick = {
                         navController.navigate(route = "${NavScreen.GamedealDetails.route}/$testName")
                     }
                 ) {
-//                    Image(
-//                        painterResource(id = R.drawable.ic_deal),
-//                        colorFilter = ColorFilter.tint(Color.White),
-//                        contentDescription ="Deals button icon",
-//                        modifier = Modifier.size(20.dp)
-//                    )
                     Text(
                         modifier = Modifier.padding(4.dp),
                         text = "See deals",
-//                        textAlign = TextAlign.Center,
                         color = Color.White,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 20.sp
