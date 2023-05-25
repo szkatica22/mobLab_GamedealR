@@ -2,9 +2,14 @@ package hu.bme.aut.moblab_gamedealr.ui.games
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,7 +39,8 @@ fun GamesScreen(
 ) {
     Column {
         GamesAppBar()
-        SearchedGameCard("Test gamename", navController)
+//        SearchedGameCard("Test gamename", navController)
+        SearchGame(gamesViewModel, navController)
     }
 }
 
@@ -62,14 +68,55 @@ fun GamesAppBar() {
     }
 }
 @Composable
-fun SearchGame() {
+fun SearchGame(viewModel: GamesViewModel, navController: NavController) {
+
+    val searchText by viewModel.searchGameNameText.collectAsState()
+    val games by viewModel.searchedGames.collectAsState()
+    val isSearching by viewModel.isSearching.collectAsState()
+
     // Search Edit text the top of the screen
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        TextField(
+            value = searchText,
+            onValueChange = viewModel::onSearchedGameNameTextChange,
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = { Text(text = "Searched game name...") }
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        if(isSearching) {
+            Box( modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                items(games) { game ->
+                    SearchedGameCard(searchedGame = game, navController = navController)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun GamesList() {
+    // List of SearchedGameCard items
+
 }
 
 @Composable
 fun SearchedGameCard(
-//    searchedGame: Game,
-    testName: String,
+    searchedGame: Game,
+//    testName: String,
     navController: NavController
 ) {
     // Card with the searched result game information
@@ -84,7 +131,8 @@ fun SearchedGameCard(
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
             Box(
-                modifier = Modifier.size(128.dp)
+                modifier = Modifier
+                    .size(128.dp)
                     .align(Alignment.CenterVertically)
                     .clip(RoundedCornerShape(20.dp))
             ) {
@@ -99,7 +147,7 @@ fun SearchedGameCard(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = testName,
+                    text = searchedGame.internalName,
                     style = TextStyle(
                         textAlign = TextAlign.Center,
                         color = Color.Black,
@@ -113,7 +161,7 @@ fun SearchedGameCard(
                     colors = ButtonDefaults.buttonColors(backgroundColor = Purple900),
                     shape = RoundedCornerShape(20.dp),
                     onClick = {
-                        navController.navigate(route = "${NavScreen.GamedealDetails.route}/$testName")
+                        navController.navigate(route = "${NavScreen.GamedealDetails.route}/${searchedGame.internalName}")
                     }
                 ) {
                     Text(
