@@ -4,14 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -111,12 +108,6 @@ fun SearchGame(viewModel: GamesViewModel, navController: NavController) {
 }
 
 @Composable
-fun GamesList() {
-    // List of SearchedGameCard items
-
-}
-
-@Composable
 fun SearchedGameCard(
     searchedGame: Game,
 //    testName: String,
@@ -155,7 +146,7 @@ fun SearchedGameCard(
                         textAlign = TextAlign.Center,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp
+                        fontSize = 20.sp
                     )
                 )
                 Spacer(modifier = Modifier.height(40.dp))
@@ -172,7 +163,7 @@ fun SearchedGameCard(
                         text = "See deals",
                         color = Color.White,
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 20.sp
+                        fontSize = 18.sp
                     )
                     Image(
                         painterResource(id = R.drawable.ic_arrow),

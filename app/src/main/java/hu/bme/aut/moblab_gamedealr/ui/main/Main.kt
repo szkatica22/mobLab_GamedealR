@@ -41,10 +41,10 @@ fun GamedealRMainScreen() {
                 navArgument(NavScreen.GamedealDetails.argument0) { type = NavType.StringType }
             )
         ) { backStackEntry ->
-            val gameId =
+            val gameName =
                 backStackEntry.arguments?.getString(NavScreen.GamedealDetails.argument0) ?: return@composable
 
-            DealsScreen(gameId = gameId, viewModel = hiltViewModel(), navController = navController) {
+            DealsScreen(gameName = gameName, viewModel = hiltViewModel(), navController = navController) {
                 navController.navigateUp()
             }
 

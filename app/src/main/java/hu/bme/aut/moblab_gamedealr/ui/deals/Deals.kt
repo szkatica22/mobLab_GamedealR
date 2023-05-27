@@ -1,13 +1,17 @@
 package hu.bme.aut.moblab_gamedealr.ui.deals
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -24,23 +28,49 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import hu.bme.aut.moblab_gamedealr.R
+import hu.bme.aut.moblab_gamedealr.model.Deal
+import hu.bme.aut.moblab_gamedealr.ui.games.SearchedGameCard
 import hu.bme.aut.moblab_gamedealr.ui.theme.Purple100
 import hu.bme.aut.moblab_gamedealr.ui.theme.Purple900
 import hu.bme.aut.moblab_gamedealr.ui.theme.White100
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.Date
 
 @Composable
 fun DealsScreen(
-    gameId: String,
+    gameName: String,
     viewModel: DealsViewModel,
     navController: NavController,
     pressOnBack: () -> Unit = {}
 ) {
+
+    // get deals for the actual game
+    LaunchedEffect(gameName) {
+        viewModel.getActualDeals(gameName)
+    }
+
+    // Save store information once
+    LaunchedEffect(true) {
+        viewModel.getStores()
+    }
+
     // display the game header - name and image;
     // display the list of the deals
     Column() {
-        DealsAppBar(gameId, navController)
+        DealsAppBar(gameName, navController)
         GameHeader() // - benan nez ki, kicsi a kep, ugyhogy random kep van
-        DealDetails()
+        Spacer(modifier = Modifier.height(16.dp))
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            items(viewModel.gameDeals) { deal ->
+                DealDetails(deal, viewModel)
+            }
+        }
+
     }
 
 }
@@ -85,7 +115,7 @@ private fun GameHeader(
     ) {
         AsyncImage(
             model = "https://picsum.photos/300/200",
-            contentDescription = "Test image",
+            contentDescription = "Header image",
             modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.FillWidth
         )
@@ -94,7 +124,8 @@ private fun GameHeader(
 
 @Composable
 private fun DealDetails(
-//    deal: Deal,
+    deal: Deal,
+    viewModel: DealsViewModel
 ) {
     // Card with the deal information
     Card(
@@ -122,7 +153,7 @@ private fun DealDetails(
                         .width(210.dp),
                 ) {
                     Text(
-                        text = "Store Name",
+                        text = viewModel.storesList.first{it.storeID == deal.storeID}.storeName,
                         modifier = Modifier
                             .align(Alignment.Center)
                             .fillMaxWidth(),
@@ -135,21 +166,25 @@ private fun DealDetails(
                     )
                 }
                 // Action in percent
-                Card(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .width(70.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    backgroundColor = Purple100,
-                ) {
-                    Text(
-                        text = "-50%",
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
-                        color = White100
-                    )
+                val saving = deal.savings.toDouble().toInt()
+                if(saving > 0) {
+                    Card(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .width(70.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        backgroundColor = Purple100,
+                    ) {
+                        Text(
+                            text = "-${deal.savings.toDouble().toInt()}%",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            color = White100
+                        )
+                    }
                 }
+
                 // Bookmark Icon
                 Image(
                     painterResource(id = R.drawable.ic_add_bookmark),
@@ -195,7 +230,7 @@ private fun DealDetails(
                         .padding(end = 10.dp),
                 ) {
                     Text(
-                        text = "20.00 $",
+                        text = "${deal.normalPrice} $",
                         style = TextStyle(
                             color = Color.Black,
                             fontWeight = FontWeight.SemiBold,
@@ -233,7 +268,7 @@ private fun DealDetails(
                         .padding(end = 10.dp),
                 ) {
                     Text(
-                        text = "10.00 $",
+                        text = "${deal.salePrice} $",
                         style = TextStyle(
                             color = Color.Black,
                             fontWeight = FontWeight.SemiBold,
@@ -256,7 +291,7 @@ private fun DealDetails(
                         .padding(start = 10.dp),
                 ) {
                     Text(
-                        text = stringResource(R.string.sale_ends),
+                        text = stringResource(R.string.is_on_sale),
                         style = TextStyle(
                             color = Color.Black,
                             fontWeight = FontWeight.SemiBold,
@@ -270,14 +305,25 @@ private fun DealDetails(
                         .width(200.dp)
                         .padding(end = 10.dp),
                 ) {
-                    Text(
-                        text = "2023.04.22.",
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 16.sp
+                    if(deal.isOnSale == "0") {
+                        Text(
+                            text = stringResource(R.string.no_sale),
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 16.sp
+                            )
                         )
-                    )
+                    } else {
+                        Text(
+                            text = stringResource(R.string.is_sale),
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 16.sp
+                            )
+                        )
+                    }
                 }
             }
         }

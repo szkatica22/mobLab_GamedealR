@@ -7,6 +7,8 @@
 
     <string name="original_price">Original price:</string>
     <string name="actual_price">Actual price:</string>
-    <string name="sale_ends">Sale ends:</string>
+    <string name="is_on_sale">Is on sale:</string>
+    <string name="is_sale">Is on sale</string>
+    <string name="no_sale">Not on sale</string>
     <string name="store">Store:</string>
 </resources>

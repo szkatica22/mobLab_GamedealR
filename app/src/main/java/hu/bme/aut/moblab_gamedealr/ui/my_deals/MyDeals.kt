@@ -319,7 +319,7 @@ fun MyDealDetails(
                         .padding(start = 10.dp),
                 ) {
                     Text(
-                        text = stringResource(R.string.sale_ends),
+                        text = stringResource(R.string.is_on_sale),
                         style = TextStyle(
                             color = Color.Black,
                             fontWeight = FontWeight.SemiBold,
@@ -333,14 +333,25 @@ fun MyDealDetails(
                         .width(200.dp)
                         .padding(end = 10.dp),
                 ) {
-                    Text(
-                        text = "2023.04.22.",
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 16.sp
-                        )
-                    )
+//                    if(deal.isOnSale == "0") {
+//                        Text(
+//                            text = stringResource(R.string.no_sale),
+//                            style = TextStyle(
+//                                color = Color.Black,
+//                                fontWeight = FontWeight.SemiBold,
+//                                fontSize = 16.sp
+//                            )
+//                        )
+//                    } else {
+//                        Text(
+//                            text = stringResource(R.string.is_sale),
+//                            style = TextStyle(
+//                                color = Color.Black,
+//                                fontWeight = FontWeight.SemiBold,
+//                                fontSize = 16.sp
+//                            )
+//                        )
+//                    }
                 }
             }
         }
