@@ -1,7 +1,5 @@
 package hu.bme.aut.moblab_gamedealr.ui.games
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,19 +26,15 @@ class GamesViewModel @Inject constructor(
     private val _isSearching = MutableStateFlow(false)
     val isSearching = _isSearching.asStateFlow()
 
-    private val _result= MutableLiveData<List<Game>>()
-    val result: LiveData<List<Game>>
-        get() = _result
-
     private val _searchedGames = MutableStateFlow(initGameList)
     val searchedGames = _searchGameNameText
         .debounce(500L)
         .onEach { _isSearching.update { true } }
         .combine(_searchedGames) { text, games ->
             if(text.isBlank()) {
-                listOf<Game>()
+                games
             } else {
-                delay(2000L)
+//                delay(2000L)
                 getSearchedGames()
             }
         }
@@ -60,28 +54,28 @@ class GamesViewModel @Inject constructor(
         _searchGameNameText.value = text
     }
 
-    fun getSearchedGames(){
+    fun getSearchedGames() : List<Game> {
+        var matchedGames = listOf<Game>()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _searchedGames.value = (gamesRepository.searchGames(searchGameNameText.value))
+                matchedGames = gamesRepository.searchGames(searchGameNameText.value)
             } catch (e: Exception) {
                 println(e)
             }
         }
+        return matchedGames
     }
 
     fun getInitialGames() : List<Game> {
-        val initGames: MutableList<Game> = mutableListOf()
+        var matchedGames = listOf<Game>()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                gamesRepository.searchGames("").forEach {game: Game ->
-                        initGames += game
-                    }
+                println(gamesRepository.searchGames(""))
             } catch (e: Exception) {
                 println(e)
             }
         }
-        return initGames
+        return matchedGames
     }
 
     fun getTestGames() {

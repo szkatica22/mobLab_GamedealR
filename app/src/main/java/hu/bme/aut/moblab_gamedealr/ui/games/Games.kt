@@ -99,7 +99,7 @@ fun SearchGame(viewModel: GamesViewModel, navController: NavController) {
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                items(viewModel.result.value?: listOf()) { game ->
+                items(games) { game ->
                     SearchedGameCard(searchedGame = game, navController = navController)
                 }
             }
