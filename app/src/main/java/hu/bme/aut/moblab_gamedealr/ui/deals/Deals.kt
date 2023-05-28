@@ -3,6 +3,7 @@ package hu.bme.aut.moblab_gamedealr.ui.deals
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,12 +13,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -33,6 +36,7 @@ import hu.bme.aut.moblab_gamedealr.ui.games.SearchedGameCard
 import hu.bme.aut.moblab_gamedealr.ui.theme.Purple100
 import hu.bme.aut.moblab_gamedealr.ui.theme.Purple900
 import hu.bme.aut.moblab_gamedealr.ui.theme.White100
+import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -83,11 +87,10 @@ fun DealsAppBar(title: String, navController: NavController) {
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth(),
-                text = title,
+                text = "$title deals",
                 color = Color.White,
                 fontSize = 18.sp,
                 maxLines = 1,
-                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold
             )
         },
@@ -140,6 +143,10 @@ private fun DealDetails(
             modifier = Modifier.padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            val storeName = viewModel.storesList.first{it.storeID == deal.storeID}.storeName
+            val coroutineScope = rememberCoroutineScope()
+            val context = LocalContext.current
+
             // First row
             Row(
                 modifier = Modifier.padding(8.dp),
@@ -153,7 +160,7 @@ private fun DealDetails(
                         .width(210.dp),
                 ) {
                     Text(
-                        text = viewModel.storesList.first{it.storeID == deal.storeID}.storeName,
+                        text = storeName,
                         modifier = Modifier
                             .align(Alignment.Center)
                             .fillMaxWidth(),
@@ -167,7 +174,9 @@ private fun DealDetails(
                 }
                 // Action in percent
                 val saving = deal.savings.toDouble().toInt()
+                var sale: Boolean
                 if(saving > 0) {
+                    sale = true
                     Card(
                         modifier = Modifier
                             .padding(8.dp)
@@ -183,15 +192,26 @@ private fun DealDetails(
                             color = White100
                         )
                     }
+                } else {
+                    sale = false
+                    Box(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .width(70.dp),
+                    )
                 }
 
                 // Bookmark Icon
-                Image(
-                    painterResource(id = R.drawable.ic_add_bookmark),
-                    colorFilter = ColorFilter.tint(Color.Black),
-                    contentDescription ="Save deal icon",
-                    modifier = Modifier.size(40.dp)
-                )
+                IconButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            viewModel.saveDeal(deal, storeName, sale, context)
+                        }
+                    },
+                    modifier = Modifier.size(48.dp),
+                ) {
+                    Icon(painterResource(id = R.drawable.ic_add_bookmark), "Save deal icon")
+                }
             }
 
             // Divider
@@ -278,7 +298,7 @@ private fun DealDetails(
                 }
             }
 
-            // Fourth row - sale ends information
+            // Fourth row - is on sale or not information
             Row(
                 modifier = Modifier.padding(4.dp),
                 verticalAlignment = Alignment.CenterVertically,

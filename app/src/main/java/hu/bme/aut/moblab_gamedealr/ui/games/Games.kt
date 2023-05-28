@@ -32,15 +32,11 @@ import hu.bme.aut.moblab_gamedealr.ui.theme.Purple900
 
 @Composable
 fun GamesScreen(
-    modifier: Modifier = Modifier,
-    games: List<Game>,
-    selectGame: (Long) -> Unit,
     gamesViewModel: GamesViewModel,
     navController: NavController
 ) {
     Column {
         GamesAppBar()
-//        SearchedGameCard("Test gamename", navController)
         SearchGame(gamesViewModel, navController)
     }
 }
@@ -70,10 +66,6 @@ fun GamesAppBar() {
 }
 @Composable
 fun SearchGame(viewModel: GamesViewModel, navController: NavController) {
-
-//    val searchText by viewModel.searchGameNameText.collectAsState()
-//    val games by viewModel.searchedGames.collectAsState()
-//    val isSearching by viewModel.isSearching.collectAsState()
 
     // Search Edit text the top of the screen
     Column(
@@ -110,7 +102,6 @@ fun SearchGame(viewModel: GamesViewModel, navController: NavController) {
 @Composable
 fun SearchedGameCard(
     searchedGame: Game,
-//    testName: String,
     navController: NavController
 ) {
     // Card with the searched result game information
@@ -118,7 +109,6 @@ fun SearchedGameCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-//            .clickable { },
         elevation = 10.dp,
         shape = RoundedCornerShape(20.dp),
         backgroundColor = Color.White,
@@ -141,7 +131,7 @@ fun SearchedGameCard(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = searchedGame.internalName,
+                    text = searchedGame.external,
                     style = TextStyle(
                         textAlign = TextAlign.Center,
                         color = Color.Black,
@@ -155,7 +145,7 @@ fun SearchedGameCard(
                     colors = ButtonDefaults.buttonColors(backgroundColor = Purple900),
                     shape = RoundedCornerShape(20.dp),
                     onClick = {
-                        navController.navigate(route = "${NavScreen.GamedealDetails.route}/${searchedGame.internalName}")
+                        navController.navigate(route = "${NavScreen.GamedealDetails.route}/${searchedGame.external}")
                     }
                 ) {
                     Text(

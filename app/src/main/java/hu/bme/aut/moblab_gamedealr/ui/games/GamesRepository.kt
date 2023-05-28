@@ -1,6 +1,5 @@
 package hu.bme.aut.moblab_gamedealr.ui.games
 
-import androidx.annotation.WorkerThread
 import hu.bme.aut.moblab_gamedealr.model.Game
 import hu.bme.aut.moblab_gamedealr.model.Store
 import hu.bme.aut.moblab_gamedealr.network.GamedealRService
@@ -20,6 +19,4 @@ class GamesRepository @Inject constructor(
     suspend fun getStores(): List<Store>{
         return gamedealRService.getStores()
     }
-
-    // TODO try out the two dao
 }

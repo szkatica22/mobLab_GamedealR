@@ -13,7 +13,7 @@ interface MyDealsDao {
     suspend fun getMyDealsList(): List<MyDeals>
 
     @Query("SELECT * FROM my_deals WHERE dealID = :dealIDs")
-    suspend fun getOneDeal(dealIDs: Int): MyDeals
+    suspend fun getOneDeal(dealIDs: String): MyDeals?
 
     @Insert
     suspend fun saveDeal(vararg savingMyDeal: MyDeals)

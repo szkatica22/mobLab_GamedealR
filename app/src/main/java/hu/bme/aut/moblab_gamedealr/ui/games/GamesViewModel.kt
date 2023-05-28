@@ -10,12 +10,10 @@ import hu.bme.aut.moblab_gamedealr.model.Game
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import java.lang.Exception
 import javax.inject.Inject
 
-@OptIn(FlowPreview::class)
 @HiltViewModel
 class GamesViewModel @Inject constructor(
     private val gamesRepository: GamesRepository
@@ -26,10 +24,6 @@ class GamesViewModel @Inject constructor(
 
     var searchedGames by mutableStateOf<List<Game>>(listOf())
         private set
-
-    init {
-        CheckAndSaveStores()
-    }
 
     fun onSearchedGameNameTextChange(text:String) {
         searchGameNameText = text
@@ -43,16 +37,5 @@ class GamesViewModel @Inject constructor(
                 println(e)
             }
         }
-    }
-
-
-    fun CheckAndSaveStores() {
-//        viewModelScope.launch(Dispatchers.IO){
-//            try {
-//                println(gamesRepository.getStores())
-//            } catch (e: Exception){
-//                println(e)
-//            }
-//        }
     }
 }
