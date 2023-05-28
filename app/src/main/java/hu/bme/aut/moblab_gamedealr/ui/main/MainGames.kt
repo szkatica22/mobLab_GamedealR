@@ -49,7 +49,7 @@ fun GamesMainScreen(
         }
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
-        Crossfade(selectedTab) { destination ->
+        Crossfade(selectedTab,modifier=modifier) { destination ->
             when (destination) {
                 GamedealRHomeTab.GAMES -> GamesScreen(hiltViewModel(), navController)
                 GamedealRHomeTab.MYDEALS -> MyDealsScreen(modifier, games, hiltViewModel())

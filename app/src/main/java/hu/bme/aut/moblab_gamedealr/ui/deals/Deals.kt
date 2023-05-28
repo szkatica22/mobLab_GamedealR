@@ -48,16 +48,16 @@ fun DealsScreen(
     navController: NavController,
     pressOnBack: () -> Unit = {}
 ) {
-
+    // Save store information once
+    LaunchedEffect(true) {
+        viewModel.getStores()
+    }
     // get deals for the actual game
     LaunchedEffect(gameName) {
         viewModel.getActualDeals(gameName)
     }
 
-    // Save store information once
-    LaunchedEffect(true) {
-        viewModel.getStores()
-    }
+
 
     // display the game header - name and image;
     // display the list of the deals
@@ -74,7 +74,6 @@ fun DealsScreen(
                 DealDetails(deal, viewModel)
             }
         }
-
     }
 
 }
@@ -143,7 +142,7 @@ private fun DealDetails(
             modifier = Modifier.padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            val storeName = viewModel.storesList.first{it.storeID == deal.storeID}.storeName
+            val storeName = viewModel.storesList.firstOrNull{it.storeID == deal.storeID}?.storeName?:""
             val coroutineScope = rememberCoroutineScope()
             val context = LocalContext.current
 
