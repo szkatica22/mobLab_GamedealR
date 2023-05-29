@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 class GamesRepository @Inject constructor(
     private val gamedealRService: GamedealRService,
-    private val myDealsDao: MyDealsDao,
 ){
     suspend fun searchGames(query: String): List<Game> {
         return gamedealRService.searchGames(query)

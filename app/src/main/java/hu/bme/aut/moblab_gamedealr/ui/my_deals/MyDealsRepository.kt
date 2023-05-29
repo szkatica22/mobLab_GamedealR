@@ -9,7 +9,6 @@ import javax.inject.Inject
 class MyDealsRepository @Inject constructor(
     private val myDealsDao: MyDealsDao,
 ) {
-
     suspend fun getMyDeals(): List<MyDeals> {
         return myDealsDao.getMyDealsList()
     }

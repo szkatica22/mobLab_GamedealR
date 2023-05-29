@@ -17,8 +17,7 @@ class RepositoryModule {
     @ViewModelScoped
     fun provideGamesRepository(
         gamedealRService: GamedealRService,
-        myDealsDao: MyDealsDao
     ): GamesRepository {
-        return GamesRepository(gamedealRService, myDealsDao)
+        return GamesRepository(gamedealRService)
     }
 }

@@ -88,4 +88,7 @@ dependencies {
 
     // to load images from url
     implementation "io.coil-kt:coil-compose:2.4.0"
+
+    // testing
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
 }
