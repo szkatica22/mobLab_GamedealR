@@ -1,16 +1,11 @@
 package hu.bme.aut.moblab_gamedealr.ui.my_deals
 
-import hu.bme.aut.moblab_gamedealr.model.Game
 import hu.bme.aut.moblab_gamedealr.model.MyDeals
-import hu.bme.aut.moblab_gamedealr.network.GamedealRService
 import hu.bme.aut.moblab_gamedealr.persistence.MyDealsDao
-import hu.bme.aut.moblab_gamedealr.ui.games.GamesRepository
-import junit.framework.TestCase
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.kotlin.any
 
 class MyDealsRepositoryTest {
 
