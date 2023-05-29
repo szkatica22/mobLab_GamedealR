@@ -9,7 +9,6 @@ import dagger.hilt.components.SingletonComponent
 import hu.bme.aut.moblab_gamedealr.R
 import hu.bme.aut.moblab_gamedealr.persistence.AppDatabase
 import hu.bme.aut.moblab_gamedealr.persistence.MyDealsDao
-import hu.bme.aut.moblab_gamedealr.persistence.StoreInfoDao
 import javax.inject.Singleton
 
 @Module
@@ -31,10 +30,5 @@ object PersistenceModule {
     @Singleton
     fun provideMayDealsDao(appDatabase: AppDatabase): MyDealsDao {
         return appDatabase.myDealsDao()
-    }
-    @Provides
-    @Singleton
-    fun provideStoreInfoDao(appDatabase: AppDatabase): StoreInfoDao {
-        return appDatabase.storeInfoDao()
     }
 }
