@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256405544089",
+    "project_id": "moblab-gamedealr",
+    "storage_bucket": "moblab-gamedealr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256405544089:android:8cd0fd0e055bb0c9bc2c08",
+        "android_client_info": {
+          "package_name": "hu.bme.aut.moblab_gamedealr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtIkeuIubm9FA4Y5gEy3_q0wk4vceuKW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
